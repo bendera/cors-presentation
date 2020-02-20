@@ -1,0 +1,19 @@
+{
+  "name": "api.acmecorp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "koa": "^2.11.0",
+    "koa-router": "^8.0.8"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}
