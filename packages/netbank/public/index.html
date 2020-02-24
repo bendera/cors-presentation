@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ACME Corp Netbank</title>
+</head>
+<body>
+  <h1>ACME Corp Netbank</h1>
+  <div id="userinfo"></div>
+  <script>
+    (() => {
+      const loadUserinfo = async () => {
+        let info;
+
+        try {
+          response = await fetch('http://api.netbank.localhost/userinfo', {
+            method: 'GET',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+          });
+
+          const data = await response.json();
+          displayInfo(data);
+        } catch(e) {
+          alert(e);
+        }
+      }
+
+      const displayInfo = (info) => {
+        const el = document.getElementById('userinfo');
+        let rows = '';
+        const keys = Object.keys(info);
+
+        keys.forEach(k => {
+          rows += `<tr><td><strong>${k}</strong></td><td>${info[k]}</td></tr>`;
+        });
+
+        el.innerHTML = `<table>${rows}</table>`;
+      }
+
+      loadUserinfo();
+    })();
+  </script>
+</body>
+</html>

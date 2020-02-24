@@ -1,0 +1,7 @@
+POST http://api.acmecorp.localhost/login HTTP/1.1
+content-type: application/json
+
+{
+    "name": "admin",
+    "password": "admin"
+}

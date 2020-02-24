@@ -1,5 +1,5 @@
 {
-  "name": "api.acmecorp",
+  "name": "express-example",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,13 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@koa/cors": "^2.2.3",
-    "install": "^0.13.0",
-    "koa": "^2.11.0",
-    "koa-bodyparser": "^4.2.1",
-    "koa-router": "^8.0.8",
-    "koa-session": "^5.13.1",
-    "npm": "^6.13.7"
+    "cors": "^2.8.5",
+    "express": "^4.17.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"

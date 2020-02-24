@@ -2,6 +2,7 @@ const Koa = require('koa');
 const Router = require('koa-router');
 const bodyParser = require('koa-bodyparser');
 const session = require('koa-session');
+const cors = require('@koa/cors');
 
 const app = new Koa();
 const router = new Router();
@@ -14,28 +15,43 @@ const CONFIG = {
   maxAge: 86400000,
 }
 
-// app.use(bodyParser());
+app.use(bodyParser());
 app.use(session(CONFIG, app));
+app.use(cors({
+  origin: '*',
+  credentials: true
+}));
+
+const secretInfo = {
+  name: 'John Doe',
+  accountBalance: '2980000',
+  email: 'johndoe@example.com'
+};
 
 router
   .get('/', (ctx, next) => {
-    ctx.response.set('Access-Control-Allow-Origin', '*');
-    // ctx.response.set('Access-Control-Allow-Credentials', true);
+    const loggedIn = ctx.session.loggedIn || false;
 
-    let n = ctx.session.views || 0;
-
-    ctx.session.views = ++n;
-
-    ctx.body = {
-      message: 'hello',
-      views: n,
-    };
+    if (loggedIn) {
+      ctx.body = {
+        loggedIn: loggedIn,
+        ...secretInfo
+      };
+    } else {
+      ctx.body = {
+        loggedIn: loggedIn,
+        name: 'Anonymus',
+      };
+    }
   })
   .post('/login', (ctx, next) => {
-    ctx.response.set('Access-Control-Allow-Origin', '*');
+    const { name, password } = ctx.request.body;
+    const loggedIn = name === 'admin' && password === 'admin';
 
-    console.dir(ctx.request.rawBody);
-    next();
+    ctx.session.loggedIn = loggedIn;
+    ctx.body = {
+      'loggedIn': loggedIn
+    };
   });
 
 app
