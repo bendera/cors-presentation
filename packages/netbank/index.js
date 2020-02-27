@@ -1,37 +1,13 @@
-const Hapi = require('@hapi/hapi');
-const Inert = require('inert');
-const path = require('path');
-
+const express = require('express');
+const cors = require('cors');
+const app = express();
 const port = process.env.PORT || 3000;
 
-const init = async () => {
-  const server = Hapi.server({
-    host: '0.0.0.0',
-    port,
-    routes: {
-      files: {
-        relativeTo: path.join(__dirname, 'public'),
-      },
-    },
-  });
+app.use(express.static('public'));
+app.use(cors());
 
-  await server.register(Inert);
+app.get('/', (req, res) => res.send('Hello World!'));
 
-  server.route({
-    method: 'GET',
-    path: '/',
-    handler: function(request, h) {
-      return h.file('index.html');
-    },
-  });
+app.options('*', cors());
 
-  await server.start();
-  console.log('Server running on %s', server.info.uri);
-};
-
-process.on('unhandledRejection', (err) => {
-  console.log(err);
-  process.exit(1);
-});
-
-init();
+app.listen(port, () => console.log(`Express server listening on port ${port}!`));
