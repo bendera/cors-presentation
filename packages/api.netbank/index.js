@@ -26,6 +26,8 @@ app.use(bodyParser.urlencoded({
 app.get('/', (req, res) => res.send('Hello World!'));
 
 app.post('/user', (req, res) => {
+  res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+
   if (req.body.username === 'admin' && req.body.password === 'admin') {
     req.session.loggedIn = true;
   }
@@ -38,6 +40,8 @@ app.post('/user', (req, res) => {
 });
 
 app.get('/user', (req, res) => {
+  res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+
   const loggedIn = req.session.loggedIn || false;
 
   req.session.views = (req.session.views || 0) + 1;
@@ -56,6 +60,16 @@ app.get('/user', (req, res) => {
       loggedIn
     });
   }
+});
+
+app.get('/logout', (req, res) => {
+  res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+
+  req.session = null;
+
+  res.json({
+    loggedIn: false
+  });
 });
 
 app.options('*', cors());

@@ -5,9 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Netbank Frontend</title>
   <style>
-    .userinfo,
-    .login-form,
-    .error {
+    .protected-content,
+    .login-form {
       display: none;
     }
 
@@ -18,7 +17,10 @@
 </head>
 <body>
   <h1>Netbank Frontend</h1>
-  <div id="user-info" class="userinfo"></div>
+  <div id="protected-content">
+    <div id="user-info" class="userinfo"></div>
+    <button type="button" id="btn-logout">Logout</button>
+  </div>
   <div id="login-form" class="login-form">
     <form>
       <p><input type="text" placeholder="username" id="username"></p>
@@ -30,8 +32,10 @@
   <script>
     (() => {
       const elLoginForm = document.getElementById('login-form');
+      const elProtectedContent = document.getElementById('protected-content');
       const elUserInfo = document.getElementById('user-info');
       const elError = document.getElementById('error');
+      const elBtnLogout = document.getElementById('btn-logout');
 
       const loadUserinfo = async () => {
         let info;
@@ -51,19 +55,19 @@
           const data = await response.json();
 
           if (data.loggedIn) {
-            toggleInfo(true);
+            toggleProtectedContent(true);
             toggleForm(false);
             displayInfo(data);
           } else {
             toggleForm(true);
-            toggleInfo(false);
+            toggleProtectedContent(false);
           }
         } catch (e) {
           showError(e.name + ': ' + e.message);
         }
       }
 
-      const loginRequest = async () => {
+      const login = async () => {
         let response;
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
@@ -93,11 +97,28 @@
         }
       };
 
+      const logout = async () => {
+        await fetch('http://api.netbank.localhost/logout', {
+          credentials: 'include',
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+        });
+
+        window.location.reload();
+      };
+
       elLoginForm.addEventListener('submit', (event) => {
         event.stopPropagation();
         event.preventDefault();
 
-        loginRequest();
+        login();
+      });
+
+      elBtnLogout.addEventListener('click', () => {
+        logout();
       });
 
       const displayInfo = (info) => {
@@ -108,7 +129,11 @@
           rows += `<tr><td><strong>${k}</strong></td><td>${info[k]}</td></tr>`;
         });
 
-        elUserInfo.innerHTML = `<table>${rows}</table>`;
+        elUserInfo.innerHTML = `
+          <table>
+            ${rows}
+          </table>
+        `;
       }
 
       const resetError = () => {
@@ -116,15 +141,15 @@
       };
 
       const showError = (msg) => {
-        elError.innerHTML = msg;
+        elError.innerHTML = `<p>${msg}</p>`;
       };
 
       const toggleForm = (show) => {
         elLoginForm.style.display = show ? 'block' : 'none';
       };
 
-      const toggleInfo = (show) => {
-        elUserInfo.style.display = show ? 'block' : 'none';
+      const toggleProtectedContent = (show) => {
+        elProtectedContent.style.display = show ? 'block' : 'none';
       };
 
       loadUserinfo();
