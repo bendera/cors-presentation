@@ -4,17 +4,43 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Netbank Frontend</title>
+  <style>
+    .userinfo,
+    .login-form,
+    .error {
+      display: none;
+    }
+
+    .error {
+      color: red;
+    }
+  </style>
 </head>
 <body>
   <h1>Netbank Frontend</h1>
-  <div id="userinfo"></div>
+  <div id="user-info" class="userinfo"></div>
+  <div id="login-form" class="login-form">
+    <form>
+      <p><input type="text" placeholder="username" id="username"></p>
+      <p><input type="password" placeholder="password" id="password"></p>
+      <p><button type="submit">Login</button></p>
+    </form>
+  </div>
+  <div id="error" class="error"></div>
   <script>
     (() => {
+      const elLoginForm = document.getElementById('login-form');
+      const elUserInfo = document.getElementById('user-info');
+      const elError = document.getElementById('error');
+
       const loadUserinfo = async () => {
         let info;
 
+        resetError();
+
         try {
-          response = await fetch('http://api.netbank.localhost/userinfo', {
+          response = await fetch('http://api.netbank.localhost/user', {
+            credentials: 'include',
             method: 'GET',
             headers: {
               'Accept': 'application/json',
@@ -23,14 +49,58 @@
           });
 
           const data = await response.json();
-          displayInfo(data);
-        } catch(e) {
-          alert(e);
+
+          if (data.loggedIn) {
+            toggleInfo(true);
+            toggleForm(false);
+            displayInfo(data);
+          } else {
+            toggleForm(true);
+            toggleInfo(false);
+          }
+        } catch (e) {
+          showError(e.name + ': ' + e.message);
         }
       }
 
+      const loginRequest = async () => {
+        let response;
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        resetError();
+
+        try {
+          response = await fetch('http://api.netbank.localhost/user', {
+            credentials: 'include',
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              username: username,
+              password: password,
+            })
+          });
+          const data = await response.json();
+
+          if (data.loggedIn) {
+            loadUserinfo();
+          }
+        } catch (e) {
+          showError(e.name + ': ' + e.message);
+        }
+      };
+
+      elLoginForm.addEventListener('submit', (event) => {
+        event.stopPropagation();
+        event.preventDefault();
+
+        loginRequest();
+      });
+
       const displayInfo = (info) => {
-        const el = document.getElementById('userinfo');
         let rows = '';
         const keys = Object.keys(info);
 
@@ -38,8 +108,24 @@
           rows += `<tr><td><strong>${k}</strong></td><td>${info[k]}</td></tr>`;
         });
 
-        el.innerHTML = `<table>${rows}</table>`;
+        elUserInfo.innerHTML = `<table>${rows}</table>`;
       }
+
+      const resetError = () => {
+        elError.innerHTML = '';
+      };
+
+      const showError = (msg) => {
+        elError.innerHTML = msg;
+      };
+
+      const toggleForm = (show) => {
+        elLoginForm.style.display = show ? 'block' : 'none';
+      };
+
+      const toggleInfo = (show) => {
+        elUserInfo.style.display = show ? 'block' : 'none';
+      };
 
       loadUserinfo();
     })();
