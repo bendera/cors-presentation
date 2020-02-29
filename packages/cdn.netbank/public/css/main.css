@@ -1,0 +1,173 @@
+/* oswald-600 - latin_latin-ext */
+@font-face {
+  font-family: 'Oswald';
+  font-style: normal;
+  font-weight: 600;
+  src: local(''),
+       url('../fonts/oswald-v30-latin_latin-ext-600.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('../fonts/oswald-v30-latin_latin-ext-600.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* open-sans-regular - latin_latin-ext */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans Regular'), local('OpenSans-Regular'),
+       url('../fonts/open-sans-v17-latin_latin-ext-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('../fonts/open-sans-v17-latin_latin-ext-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* open-sans-italic - latin_latin-ext */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Open Sans Italic'), local('OpenSans-Italic'),
+       url('../fonts/open-sans-v17-latin_latin-ext-italic.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('../fonts/open-sans-v17-latin_latin-ext-italic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* open-sans-800 - latin_latin-ext */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 800;
+  src: local('Open Sans ExtraBold'), local('OpenSans-ExtraBold'),
+       url('../fonts/open-sans-v17-latin_latin-ext-800.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('../fonts/open-sans-v17-latin_latin-ext-800.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* open-sans-800italic - latin_latin-ext */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: italic;
+  font-weight: 800;
+  src: local('Open Sans ExtraBold Italic'), local('OpenSans-ExtraBoldItalic'),
+       url('../fonts/open-sans-v17-latin_latin-ext-800italic.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('../fonts/open-sans-v17-latin_latin-ext-800italic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+
+body,
+html {
+  height: 100%;
+}
+
+body {
+  /* https://unsplash.com/photos/ssKEI4HRRtI */
+  background: url(../img/bg.jpg) scroll no-repeat center top;
+  background-size: cover;
+  font-family: 'Open Sans', sans-serif;
+  margin: 0;
+}
+
+header {
+  background-color: #fff;
+  box-shadow: 2px 0 7px rgba(0, 0, 0, 0.4);
+  height: 75px;
+  position: relative;
+}
+
+header > div {
+  align-items: center;
+  box-sizing: border-box;
+  display: flex;
+  height: 100%;
+  justify-content: flex-start;
+  margin: 0 auto;
+  max-width: 1200px;
+  padding: 0 20px;
+  width: 100%;
+}
+
+.logo {
+  display: block;
+  height: 45px;
+  margin-right: 20px;
+  width: auto;
+}
+
+h1 {
+  display: block;
+  font-family: 'Oswald';
+  font-size: 30px;
+  font-weight: 600;
+  margin: 0;
+  text-align: center;
+}
+
+.btn {
+  background-color: #007bff;
+  border-color: #007bff;
+  border-radius: 3px;
+  border-style: solid;
+  border-width: 1px;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  text-align: center;
+  display: inline-block;
+  padding: 6px 10px;
+}
+
+.protected-content {
+  background-color: #fff;
+  padding: 50px 20px;
+}
+
+.user-info-table {
+  border-collapse: collapse;
+  margin: 0 auto;
+  width: 400px;
+}
+
+
+.user-info-table td {
+  border-bottom: 1px solid #ccc;
+  padding: 5px;
+}
+
+.user-info-table td:first-child {
+  text-align: right;
+}
+
+.user-info-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.button-wrapper {
+  text-align: center;
+}
+
+.login-form {
+  background-color: #fff;
+  border-radius: 3px;
+  box-sizing: border-box;
+  margin: 40px auto;
+  max-width: 100%;
+  padding: 30px;
+  width: 300px;
+}
+
+.login-form p:first-child {
+  margin-top: 0;
+}
+
+.login-form p:last-child {
+  margin-bottom: 0;
+}
+
+.login-form input {
+  border-radius: 3px;
+  border-style: solid;
+  border-width: 1px;
+  box-sizing: border-box;
+  display: block;
+  padding: 6px 10px;
+  width: 100%;
+}
+
+.login-form input {
+  border-color: #aaa;
+}

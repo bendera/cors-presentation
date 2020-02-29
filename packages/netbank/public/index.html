@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Netbank Frontend</title>
+  <title>ACME Corp Netbank</title>
+  <link rel="stylesheet" href="//cdn.netbank.localhost/css/main.css">
   <style>
     .protected-content,
     .login-form {
@@ -16,16 +17,21 @@
   </style>
 </head>
 <body>
-  <h1>Netbank Frontend</h1>
-  <div id="protected-content">
-    <div id="user-info" class="userinfo"></div>
-    <button type="button" id="btn-logout">Logout</button>
+  <header>
+    <div>
+      <img src="//cdn.netbank.localhost/img/acme.png" alt="" class="logo">
+      <h1>Netbank</h1>
+    </div>
+  </header>
+  <div id="protected-content" class="protected-content">
+    <div id="user-info" class="user-info"></div>
+    <p class="button-wrapper"><button type="button" id="btn-logout" class="btn">Logout</button></p>
   </div>
   <div id="login-form" class="login-form">
     <form>
       <p><input type="text" placeholder="username" id="username"></p>
       <p><input type="password" placeholder="password" id="password"></p>
-      <p><button type="submit">Login</button></p>
+      <p><button type="submit" class="btn">Login</button></p>
     </form>
   </div>
   <div id="error" class="error"></div>
@@ -126,11 +132,11 @@
         const keys = Object.keys(info);
 
         keys.forEach(k => {
-          rows += `<tr><td><strong>${k}</strong></td><td>${info[k]}</td></tr>`;
+          rows += `<tr><td><strong>${k}:</strong></td><td>${info[k]}</td></tr>`;
         });
 
         elUserInfo.innerHTML = `
-          <table>
+          <table class="user-info-table">
             ${rows}
           </table>
         `;
