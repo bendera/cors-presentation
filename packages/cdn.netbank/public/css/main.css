@@ -58,7 +58,7 @@ body {
   /* https://unsplash.com/photos/ssKEI4HRRtI */
   background: url(../img/bg.jpg) scroll no-repeat center top;
   background-size: cover;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Open Sans';
   margin: 0;
 }
 
@@ -106,6 +106,7 @@ h1 {
   box-sizing: border-box;
   color: #fff;
   cursor: pointer;
+  font-family: 'Open Sans';
   text-align: center;
   display: inline-block;
   padding: 6px 10px;
@@ -164,6 +165,7 @@ h1 {
   border-width: 1px;
   box-sizing: border-box;
   display: block;
+  font-family: 'Open Sans';
   padding: 6px 10px;
   width: 100%;
 }
