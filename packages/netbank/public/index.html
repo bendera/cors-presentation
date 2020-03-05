@@ -29,8 +29,8 @@
   </div>
   <div id="login-form" class="login-form">
     <form>
-      <p><input type="text" placeholder="username" id="username"></p>
-      <p><input type="password" placeholder="password" id="password"></p>
+      <p><input type="text" placeholder="username" id="username" name="username"></p>
+      <p><input type="password" placeholder="password" id="password" name="password"></p>
       <p><button type="submit" class="btn">Login</button></p>
     </form>
   </div>
@@ -42,6 +42,18 @@
       const elUserInfo = document.getElementById('user-info');
       const elError = document.getElementById('error');
       const elBtnLogout = document.getElementById('btn-logout');
+      const elForm = document.querySelector('#login-form form');
+
+      const serialize = (form) => {
+        let pairs = [];
+        const formData = new FormData(form);
+
+        for (let pair of formData.entries()) {
+          pairs.push(encodeURI(`${pair[0]}=${pair[1]}`));
+        }
+
+        return pairs.join('&');
+      };
 
       const loadUserinfo = async () => {
         let info;
@@ -52,9 +64,6 @@
           response = await fetch('http://api.netbank.localhost/user', {
             credentials: 'include',
             method: 'GET',
-            headers: {
-              'Content-Type': 'application/json'
-            },
           });
 
           const data = await response.json();
@@ -74,22 +83,19 @@
 
       const login = async () => {
         let response;
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
 
         resetError();
 
         try {
           response = await fetch('http://api.netbank.localhost/user', {
+            body: serialize(elForm),
             credentials: 'include',
+            cache: 'no-cache',
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/x-www-form-urlencoded'
             },
-            body: JSON.stringify({
-              username: username,
-              password: password,
-            })
+
           });
           const data = await response.json();
 
@@ -105,9 +111,6 @@
         await fetch('http://api.netbank.localhost/logout', {
           credentials: 'include',
           method: 'GET',
-          headers: {
-            'Content-Type': 'application/json'
-          },
         });
 
         window.location.reload();
