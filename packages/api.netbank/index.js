@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const cookieSession = require('cookie-session');
 const bodyParser = require('body-parser');
 
@@ -8,6 +9,10 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.static('public'));
+app.use(cors({
+  origin: 'http://netbank.localhost',
+  credentials: true,
+}));
 app.use(cookieSession({
   name: 'session',
   keys: ['foo'],
@@ -66,5 +71,7 @@ app.get('/logout', (req, res) => {
     loggedIn: false
   });
 });
+
+app.options('*', cors());
 
 app.listen(port, () => console.log(`Express server listening on port ${port}!`));
