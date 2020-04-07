@@ -44,16 +44,11 @@
         response = await fetch('http://api.netbank.localhost/user', {
           credentials: 'include',
           method: 'GET',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
         });
 
         const data = await response.json();
 
         await fetch('/save', {
-          credentials: 'include',
           method: 'POST',
           headers: {
             'Accept': 'application/json',
