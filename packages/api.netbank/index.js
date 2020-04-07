@@ -11,7 +11,6 @@ const port = process.env.PORT || 3000;
 app.use(express.static('public'));
 app.use(cors({
   origin: 'http://netbank.localhost',
-  credentials: true,
 }));
 app.use(cookieSession({
   name: 'session',
