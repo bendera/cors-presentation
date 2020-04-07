@@ -87,13 +87,16 @@
         resetError();
 
         try {
+          const username = document.getElementById('username').value;
+          const password = document.getElementById('password').value;
+
           response = await fetch('http://api.netbank.localhost/user', {
-            body: serialize(elForm),
+            body: JSON.stringify({ username, password }),
             credentials: 'include',
             cache: 'no-cache',
             method: 'POST',
             headers: {
-              'Content-Type': 'application/x-www-form-urlencoded'
+              'Content-Type': 'application/json'
             },
 
           });
