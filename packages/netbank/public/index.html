@@ -62,7 +62,6 @@
 
         try {
           response = await fetch('http://api.netbank.localhost/user', {
-            credentials: 'include',
             method: 'GET',
           });
 
@@ -89,7 +88,6 @@
         try {
           response = await fetch('http://api.netbank.localhost/user', {
             body: serialize(elForm),
-            credentials: 'include',
             cache: 'no-cache',
             method: 'POST',
             headers: {
@@ -109,7 +107,6 @@
 
       const logout = async () => {
         await fetch('http://api.netbank.localhost/logout', {
-          credentials: 'include',
           method: 'GET',
         });
 
