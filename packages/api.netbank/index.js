@@ -27,6 +27,7 @@ app.get('/', (req, res) => res.send('Hello World!'));
 
 app.post('/user', (req, res) => {
   res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+  res.set('X-Atomic-Clock', new Date().toTimeString());
 
   if (req.body.username === 'admin' && req.body.password === 'admin') {
     req.session.loggedIn = true;

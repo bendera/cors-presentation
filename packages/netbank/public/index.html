@@ -24,6 +24,7 @@
     </div>
   </header>
   <div id="protected-content" class="protected-content">
+    <div id="atomic-clock"></div>
     <div id="user-info" class="user-info"></div>
     <p class="button-wrapper"><button type="button" id="btn-logout" class="btn">Logout</button></p>
   </div>
@@ -98,6 +99,8 @@
 
           });
           const data = await response.json();
+
+          document.getElementById('atomic-clock').innerHTML = `Exact time now: ${response.headers.get('X-Atomic-Clock')}`;
 
           if (data.loggedIn) {
             loadUserinfo();
