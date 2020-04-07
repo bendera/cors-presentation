@@ -12,6 +12,7 @@ app.use(express.static('public'));
 app.use(cors({
   origin: 'http://netbank.localhost',
   credentials: true,
+  exposedHeaders: ['X-Atomic-Clock'],
 }));
 app.use(cookieSession({
   name: 'session',
