@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ACME Corp Netbank</title>
-  <link rel="stylesheet" href="//cdn.netbank.localhost/css/main.css">
+  <link rel="stylesheet" href="//cdn.netbank.test/css/main.css">
   <style>
     .protected-content,
     .login-form {
@@ -19,7 +19,7 @@
 <body>
   <header>
     <div>
-      <img src="//cdn.netbank.localhost/img/acme.png" alt="" class="logo">
+      <img src="//cdn.netbank.test/img/acme.png" alt="" class="logo">
       <h1>Netbank</h1>
     </div>
   </header>
@@ -61,7 +61,7 @@
         resetError();
 
         try {
-          response = await fetch('http://api.netbank.localhost/user', {
+          response = await fetch('https://api.netbank.test/user', {
             credentials: 'include',
             method: 'GET',
           });
@@ -90,7 +90,7 @@
           const username = document.getElementById('username').value;
           const password = document.getElementById('password').value;
 
-          response = await fetch('http://api.netbank.localhost/user', {
+          response = await fetch('https://api.netbank.test/user', {
             body: JSON.stringify({ username, password }),
             credentials: 'include',
             cache: 'no-cache',
@@ -111,7 +111,7 @@
       };
 
       const logout = async () => {
-        await fetch('http://api.netbank.localhost/logout', {
+        await fetch('https://api.netbank.test/logout', {
           credentials: 'include',
           method: 'GET',
         });
