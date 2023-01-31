@@ -59,4 +59,14 @@ only one origin can be defined in the ACAO header. The (not too smart) solution
 is echoing the content of the `origin` header in the ACAO. However, with this,
 the malicious `freeiphone.test` site can access the protected content[^1].
 
+### examples/cors-api
+
+Echoing only the whitelisted origins in the `api.netbank.test` ACAO, however the browser doesn't
+keep the session. The reason is that, the `credentials` parameter is not set in the `fetch` request.
+
+### examples/preflight-request
+
+The `fetch` API called with the `credentials` parameter. The browser automatically sends an `OPTIONS`
+request to the server to ask the server capabilities, before the `POST` request.
+
 [^1]: You have to disable blocking of the third-party cookies in Firefox. [Screenshot](ff.png)
